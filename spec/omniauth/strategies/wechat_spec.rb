@@ -36,8 +36,8 @@ describe OmniAuth::Strategies::Wechat do
   end
 
   describe "#authorize_params" do
-    specify "default scope is snsapi_login" do
-      expect(subject.authorize_params[:scope]).to eq("snsapi_login")
+    specify "default scope is snsapi_userinfo" do
+      expect(subject.authorize_params[:scope]).to eq("snsapi_userinfo")
     end
   end
 
@@ -67,7 +67,7 @@ describe OmniAuth::Strategies::Wechat do
         expect(params["appid"]).to eq(['appid'])
         expect(params["redirect_uri"]).to eq([callback_url])
         expect(params["response_type"]).to eq(['code'])
-        expect(params["scope"]).to eq(['snsapi_login'])
+        expect(params["scope"]).to eq(['snsapi_userinfo'])
         expect(params["state"]).to eq([subject.session['omniauth.state']])
       end
 
@@ -110,10 +110,10 @@ describe OmniAuth::Strategies::Wechat do
       end
     end
 
-    context "when scope is snsapi_login" do
+    context "when scope is snsapi_userinfo" do
       let(:access_token) { OAuth2::AccessToken.from_hash(client, {
         "openid"=>"openid",
-        "scope"=>"snsapi_login",
+        "scope"=>"snsapi_userinfo",
         "access_token"=>"access_token"
       })}
 
