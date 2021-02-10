@@ -34,7 +34,7 @@ Here's an example for adding the middleware to a Rails app in `config/initialize
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :wechat, ENV["WECHAT_APP_ID"], ENV["WECHAT_APP_SECRET"]
+  provider :wechat, ENV["WECHAT_APP_ID"], ENV["WECHAT_APP_SECRET"], scope: 'snsapi_userinfo'
 end
 ```
 
@@ -78,6 +78,7 @@ Here's an example of an authentication hash available in the callback by accessi
     },
     :extra => {
         :raw_info => {
+          unionid:    "unionid", #if exist
           openid:     "openid"
           nickname:   "Nickname",
           sex:        1,

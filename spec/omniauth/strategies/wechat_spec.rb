@@ -27,7 +27,7 @@ describe OmniAuth::Strategies::Wechat do
     end
 
     specify 'has authorize_url' do
-      expect(subject.client.options[:authorize_url]).to eq('https://open.weixin.qq.com/connect/qrconnect?#wechat_redirect')
+      expect(subject.client.options[:authorize_url]).to eq('https://open.weixin.qq.com/connect/oauth2/authorize?#wechat_redirect')
     end
 
     specify 'has token_url' do
@@ -99,8 +99,8 @@ describe OmniAuth::Strategies::Wechat do
 
     context "when scope is snsapi_base" do
       let(:access_token) { OAuth2::AccessToken.from_hash(client, {
-        "openid"=>"openid", 
-        "scope"=>"snsapi_base", 
+        "openid"=>"openid",
+        "scope"=>"snsapi_base",
         "access_token"=>"access_token"
       })}
 
@@ -112,8 +112,8 @@ describe OmniAuth::Strategies::Wechat do
 
     context "when scope is snsapi_login" do
       let(:access_token) { OAuth2::AccessToken.from_hash(client, {
-        "openid"=>"openid", 
-        "scope"=>"snsapi_login", 
+        "openid"=>"openid",
+        "scope"=>"snsapi_login",
         "access_token"=>"access_token"
       })}
 
@@ -124,18 +124,18 @@ describe OmniAuth::Strategies::Wechat do
           expect(opts[:params]).to eq("openid"=> "openid", "lang"=>"zh_CN", "access_token"=> "access_token")
           expect(opts[:parse]).to eq(:json)
         end.and_return(double("response", parsed: 
-          {
-            "openid" => "OPENID",
-            "nickname" => "NICKNAME",
-            "sex" => "1",
-            "province" => "PROVINCE",
-            "city" => "CITY",
-            "country" => "COUNTRY",
-            "headimgurl" => "header_image_url",
-            "privilege" => ["PRIVILEGE1", "PRIVILEGE2"],
-            "unionid" => "UNIONID"
-          }
-        ))
+                              {
+          "openid" => "OPENID",
+          "nickname" => "NICKNAME",
+          "sex" => "1",
+          "province" => "PROVINCE",
+          "city" => "CITY",
+          "country" => "COUNTRY",
+          "headimgurl" => "header_image_url",
+          "privilege" => ["PRIVILEGE1", "PRIVILEGE2"],
+          "unionid" => "UNIONID"
+        }
+                             ))
 
         expect(subject.raw_info).to eq(
           {
